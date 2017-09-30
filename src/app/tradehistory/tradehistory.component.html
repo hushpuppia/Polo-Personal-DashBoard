@@ -1,0 +1,11 @@
+<button (click)="refresh()">refresh</button>
+<p-dropdown [options]="duration" [(ngModel)]="selecteddur" placeholder="Select a time duration"></p-dropdown>
+<div *ngIf='trHistAr'>
+    <p-dataTable [value]="trHistAr">
+        <p-column field="coin" [sortable]="true" header="COIN"></p-column>
+        <p-column field="price" [sortable]="true" header="Price"></p-column>
+        <p-column field="change" [sortable]="true" header="Change"></p-column>
+        <!--<p-column field="timeS" header="Time Start"></p-column>-->
+        <p-column field="timeE" header="Time End"></p-column>
+    </p-dataTable>
+</div>

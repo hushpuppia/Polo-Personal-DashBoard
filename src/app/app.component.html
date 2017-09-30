@@ -1,3 +1,11 @@
-<h1>
-  {{title}}
-</h1>
+<p-tabView>
+    <p-tabPanel header="Ticker"> 
+        <app-ticker></app-ticker>
+    </p-tabPanel>
+    <p-tabPanel header="Chart Data">
+        <app-chart-data></app-chart-data>
+    </p-tabPanel>
+    <p-tabPanel header="Trade History">
+        <app-tradehistory></app-tradehistory>
+    </p-tabPanel>
+</p-tabView>

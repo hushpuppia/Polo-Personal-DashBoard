@@ -1,0 +1,21 @@
+<button (click)="start()">Start Table</button>
+<!-- <button (click)="test()">test</button> -->
+<button (click)="load()" [disabled]="loadflag">Load</button>
+<p-progressBar [value]="value" style="height: 1px"></p-progressBar>
+<!-- {{k}} -->
+<!--{{chart|json}}--> 
+<div style="float:right">{{time}}</div>
+<div *ngIf='chart'>
+    <p-dataTable [value]="chart">
+        <p-column field="coin" [sortable]="true" header="COIN"></p-column>
+        <p-column field="change5min" [sortable]="true" header="5min"></p-column>
+        <p-column field="change15min" [sortable]="true" header="15min"></p-column>
+        <p-column field="change30min" [sortable]="true" header="30min"></p-column>
+        <p-column field="change1hr" [sortable]="true" header="1hr"></p-column>
+        <p-column field="change2hr" [sortable]="true" header="2hr"></p-column>
+        <p-column field="change4hr" [sortable]="true" header="4hr"></p-column>
+        <p-column field="change6hr" [sortable]="true" header="6hr"></p-column>
+        <p-column field="time" header="Time"></p-column>
+    </p-dataTable>
+</div>
+
