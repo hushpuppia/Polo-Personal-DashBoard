@@ -16,6 +16,7 @@ import { GetPublicDataService } from './services/get-public-data/get-public-data
 import { BtcTickerPipe } from './pipes/btc-ticker/btc-ticker.pipe';
 import { EthTickerPipe } from './pipes/eth-ticker/eth-ticker.pipe';
 import { UsdtTickerPipe } from './pipes/usdt-ticker/usdt-ticker.pipe';
+import { BtcChartPipe } from './pipes/btc-chart/btc-chart.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { UsdtTickerPipe } from './pipes/usdt-ticker/usdt-ticker.pipe';
     ChartDataComponent,
     BtcTickerPipe,
     EthTickerPipe,
-    UsdtTickerPipe
+    UsdtTickerPipe,
+    BtcChartPipe
   ],
   imports: [
     BrowserModule,

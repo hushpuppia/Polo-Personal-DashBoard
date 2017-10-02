@@ -43,7 +43,7 @@ export class GetPublicDataService {
       });
     this.dataChannel = {
       'tickerView': {},
-      'chartView' : {}
+      'chartView': {}
     };
   }
 
@@ -53,12 +53,10 @@ export class GetPublicDataService {
   }
 
   getTickerData() {
-    // console.log('update');
     let bindingFunction = (function () {
       this.http.get(this.api.ticker)
         .subscribe(data => {
           this.ticker = JSON.parse(data._body);
-          // console.log(this.ticker);
           this.updateTicker()
           this.updateTickerView();
         });
@@ -94,31 +92,36 @@ export class GetPublicDataService {
     this.dataChannel.tickerView = tickerView;
   }
 
-  async getChartData(coin, start, end, period) {
+  async getChartData(start, end, period) {
     let tmp;
     if (this.ticker) {
       let chartView = {};
-      // this.dataChannel.chartView = {}
+      let i = Object.keys(this.ticker).length;;
       for (let it in this.ticker) {
         let bindingFunction = (function () {
-          let url = this.api.chartData.base + '&currencyPair=' + it + '&start=1506843429&end=1506844029&period=300';
+          let url = this.api.chartData.base + '&currencyPair=' + it + '&start=1506843629&end=1506844029&period=300';
+          let receiveData = (function (data: any) {
+            chartView[it] = JSON.parse(data['_body']);
+            i = i - 1;
+            if (i == 0) {
+              this.dataChannel.chartView = chartView;
+            }
+          }).bind(this);
           this.http.get(url)
-            // .map(res => res
             .subscribe(data => {
-              // chartView[it] = data;
               chartView[it] = JSON.parse(data['_body']);
-
+              i = i - 1;
+              if (i == 0) {
+                this.dataChannel.chartView = chartView;
+              }
             });
         }).bind(this);
         await setTimeout(bindingFunction, 0);
-        // console.log(chartView);
       }
-      console.log('chartView');
     }
     else {
-      console.log('1');
       let bindingFunction = (function () {
-        this.getChartData(coin, start, end, period);
+        this.getChartData(start, end, period);
       }).bind(this);
       setTimeout(bindingFunction, 2000);
       return tmp;
