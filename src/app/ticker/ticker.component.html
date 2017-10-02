@@ -1,12 +1,23 @@
 <!-- {{ticker|json}} -->
-<button (click)="startDashboard()">Start Ticker</button>
+<button (click)="getTicker()">Refresh Ticker</button>
 <button (click)="getChartData()">Start Chart</button>
-<button (click)="stopDashboard()">Stop</button>
-<div *ngIf='ticker'>
-<p-dataTable [value]="ticker|btcTicker">
-    <p-column field="coin" header="COIN" [sortable]="true"></p-column>
-    <p-column field="coinname" header="CoinName" [sortable]="true"></p-column>
-    <p-column field="price" header="Price" [sortable]="true"></p-column>
-    <p-column field="change" header="Change" [sortable]="true"></p-column>
-</p-dataTable> 
+<button (click)="stopDashboard()">Stop Dashboard</button> {{dataChannel.chartData}}
+<div *ngIf='dataChannel'>
+    <div class='tableA'>
+        <p-dataTable [value]="dataChannel.tickerView|btcTicker">
+            <p-column field="coin" header="COIN" [sortable]="true"></p-column>
+            <p-column field="coinname" header="CoinName" [sortable]="true"></p-column>
+            <p-column field="price" header="Price" [sortable]="true"></p-column>
+            <p-column field="change" header="Change" [sortable]="true"></p-column>
+        </p-dataTable>
+    </div>
+    <div class='tableA'>
+        <p-dataTable [value]="dataChannel.chartData|btcTicker">
+            <p-column field="coin" header="COIN" [sortable]="true"></p-column>
+            <p-column field="coinname" header="CoinName" [sortable]="true"></p-column>
+            <p-column field="price" header="Price" [sortable]="true"></p-column>
+            <p-column field="change" header="Change" [sortable]="true"></p-column>
+        </p-dataTable>
+    </div>
+
 </div>

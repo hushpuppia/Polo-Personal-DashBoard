@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { BtcTickerPipe } from '../pipes/btc-ticker/btc-ticker.pipe'
 import { GetPublicDataService } from '../services/get-public-data/get-public-data.service'
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-ticker',
@@ -11,70 +12,43 @@ import { GetPublicDataService } from '../services/get-public-data/get-public-dat
   providers: [BtcTickerPipe]
 })
 export class TickerComponent implements OnInit {
-  tickerUrl = 'https://poloniex.com/public?command=returnTicker';
-  ticker: any;
+
+  tickerView: any;
   tickerBTC = [];
   columns;
-  timer;
+  timer:Observable<any> = Observable.timer(2000,1000);
   i: number = 0;
+  dataChannel;
 
   currencyInfo: any;
 
-  constructor(private http: Http, private getData: GetPublicDataService, private btcTicker: BtcTickerPipe) { }
+  constructor(private http: Http, private getData: GetPublicDataService, private btcTicker: BtcTickerPipe) {
+    this.dataChannel = this.getData.dataChannel;
+  }
 
   ngOnInit() {
-    this.getData.getCurrencies()
-      .subscribe(data => {
-        this.currencyInfo = data;
-      });
   }
 
-  ngOnChanges() {
+  ngOnChanges(simplechanges) {
+    console.log('update');
   }
 
-  async startDashboard() {
-    await this.getTickerData();
-    console.log('period');
-    // await this.getChartData();
+  getTicker() {
+    this.timer
+    .subscribe(tick => {
+      this.getTickerData();
+    });
+  }
+
+  getTickerData() {
+    this.getData.getTickerData();
   }
 
   stopDashboard() {
     this.timer = null;
   }
 
-  async getTickerData() {
-    let bindingFunction = (async function () {
-      await this.getData.getTicker()
-        .toPromise()
-        .then(data => {
-          this.ticker = data;
-        });
-      for (let it in this.ticker) {
-        if (it.substring(0, 3) == 'USD') {
-          let coin = it.substring(5, it.length);
-          if (this.currencyInfo[coin]) {
-            this.ticker[it]['coinname'] = ((this.currencyInfo[coin]).name);
-          }
-        }
-        else {
-          let coin = it.substring(4, it.length);
-          if (this.currencyInfo[coin]) {
-            this.ticker[it]['coinname'] = ((this.currencyInfo[coin]).name);
-          }
-        }
-      } 
-      console.log('period1')
-    }).bind(this);
-    this.timer = await setTimeout(await bindingFunction, 3000);
-    console.log('period2');
+  getChartData() {
+    this.getData.getChartData('BTC_NXT',140000,1500000,300);
   }
-  async getChartData() {
-    for(let it in this.ticker) {
-      let coin, start, end, period;
-      this.getData.getChart(coin,start,end,period)
-      .toPromise()
-      .then(data => {});
-    }
-  }
-
 }
