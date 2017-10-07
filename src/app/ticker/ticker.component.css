@@ -1,5 +1,11 @@
 .tableA{
-    width:400px;
+    width:380px;
+    display:inline-block;
+    padding: 5px 5px 5px 5px;
+    vertical-align: top;   
+}
+.tableB{
+    width:600px;
     display:inline-block;
     padding: 5px 5px 5px 5px;
     vertical-align: top;   

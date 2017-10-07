@@ -17,6 +17,7 @@ import { BtcTickerPipe } from './pipes/btc-ticker/btc-ticker.pipe';
 import { EthTickerPipe } from './pipes/eth-ticker/eth-ticker.pipe';
 import { UsdtTickerPipe } from './pipes/usdt-ticker/usdt-ticker.pipe';
 import { BtcChartPipe } from './pipes/btc-chart/btc-chart.pipe';
+import { RoundPipe } from './pipes/math/round/round.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { BtcChartPipe } from './pipes/btc-chart/btc-chart.pipe';
     BtcTickerPipe,
     EthTickerPipe,
     UsdtTickerPipe,
-    BtcChartPipe
+    BtcChartPipe,
+    RoundPipe
   ],
   imports: [
     BrowserModule,

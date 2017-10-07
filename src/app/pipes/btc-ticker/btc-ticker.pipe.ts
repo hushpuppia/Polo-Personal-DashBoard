@@ -14,7 +14,7 @@ export class BtcTickerPipe implements PipeTransform {
         tickerBTC[i].coin = it.substring(4,it.length);
         tickerBTC[i].id = ticker[it].id;
         tickerBTC[i].price = ticker[it].last;
-        tickerBTC[i].change = ticker[it].percentChange;
+        tickerBTC[i].change = (ticker[it].percentChange)*100;
         tickerBTC[i].coinname = ticker[it].coinname;             
         i = i + 1;
       }

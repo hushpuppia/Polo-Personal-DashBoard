@@ -43,7 +43,8 @@ export class GetPublicDataService {
       });
     this.dataChannel = {
       'tickerView': {},
-      'chartView': {}
+      'chartView': {},
+      'progress': 0
     };
   }
 
@@ -96,21 +97,17 @@ export class GetPublicDataService {
     let tmp;
     if (this.ticker) {
       let chartView = {};
-      let i = Object.keys(this.ticker).length;;
+      let i = Object.keys(this.ticker).length;
+      const c = Object.keys(this.ticker).length;
+      this.dataChannel.progress = 1 - i / c;
       for (let it in this.ticker) {
         let bindingFunction = (function () {
-          let url = this.api.chartData.base + '&currencyPair=' + it + '&start=1506843629&end=1506844029&period=300';
-          let receiveData = (function (data: any) {
-            chartView[it] = JSON.parse(data['_body']);
-            i = i - 1;
-            if (i == 0) {
-              this.dataChannel.chartView = chartView;
-            }
-          }).bind(this);
+          let url = this.api.chartData.base + '&currencyPair=' + it + '&start=' + start + '&end=' + end + '&period=300';
           this.http.get(url)
             .subscribe(data => {
               chartView[it] = JSON.parse(data['_body']);
               i = i - 1;
+              this.dataChannel.progress = 1 - i / c;
               if (i == 0) {
                 this.dataChannel.chartView = chartView;
               }
