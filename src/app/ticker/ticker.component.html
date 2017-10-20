@@ -1,33 +1,91 @@
 <!-- {{ticker|json}} -->
 Current Timestamp: {{date}}
-<div *ngIf='dataChannel'>
-    <div class='tableA'>
+<div *ngIf='dataChannel' >
+    <!-- <div class='tableA'>
         <div style="height: 27pt; display:inline-block">
             <button (click)="getTicker()">Refresh Ticker</button>
-            <!-- <button (click)="stopDashboard()">Stop Dashboard</button> {{dataChannel.chartData}} -->
-        </div>
-        <p-dataTable [value]="dataChannel.tickerView|btcTicker" [tableStyle]="{'font-size':'9pt'}">
+            <button (click)="stopDashboard()">Stop Dashboard</button> {{dataChannel.chartData}}
+        <! </div>
+        <p-dataTable [value]="dataChannel.tickerView|btcTicker" [tableStyle]="{'font-size':'9pt'}"> -->
             <!-- [tableStyle]="" -->
-            <p-column field="coin" header="Coin" [sortable]="true"></p-column>
-            <p-column field="coinname" header="CoinName" [sortable]="true"></p-column>
-            <p-column field="price" header="Price" [sortable]="true"></p-column>
+            <!-- <p-column field="coin" header="Coin" [sortable]="true"></p-column> -->
+            <!-- <p-column field="coinname" header="CoinName" [sortable]="true"></p-column> -->
+            <!-- <p-column field="price" header="Price" [sortable]="true"></p-column>
             <p-column field="change" header="Change" [sortable]="true"></p-column>
         </p-dataTable>
-    </div>
+    </div> --> 
     <div class='tableB'>
         <div style="height: 27pt; display:inline-block">
             <button (click)="getChartData()">Refresh Chart</button>
             <p-dropdown [options]="durations" [(ngModel)]="duration"></p-dropdown>
             Loading: {{(dataChannel.progress*100)|round}} %
         </div>
-        <p-dataTable [value]="dataChannel.chartView|btcChart: this.dataChannel.durationActive" [tableStyle]="{'font-size':'9pt'}">
-            <p-column field="coin" header="Coin" [sortable]="true"></p-column>
-            <p-column field="date" header="Time Stamp" [sortable]="true"></p-column>
-            <p-column field="open" header="Open" [sortable]="true"></p-column>
-            <p-column field="close" header="Close" [sortable]="true"></p-column>
-            <p-column field="variation" header="Variation" [sortable]="true"></p-column>
-            <p-column field="change" header="Change" [sortable]="true"></p-column>
-        </p-dataTable>
-    </div>
+        <div *ngIf="duration == '6hours'">
+            <p-dataTable [value]="dataChannel.chartView|btcChart: this.dataChannel.durationActive" [tableStyle]="{'font-size':'9pt'}">
+                <p-column field="coin" header="Coin" [sortable]="true"></p-column>
+                <p-column field="date" header="Time Stamp" [sortable]="true"></p-column>
+                <p-column field="vol5min" header="5min Vol" [sortable]="true"></p-column>
+                <p-column field="variation5min" header="5min Var" [sortable]="true"></p-column>
+                <p-column field="volspike5min" header="5min Vol Spike" [sortable]="true"></p-column>
 
-</div>
+                <p-column field="vol15min" header="15min Vol" [sortable]="true"></p-column>
+                <p-column field="variation15min" header="15min Var" [sortable]="true"></p-column>
+                <p-column field="volspike15min" header="15min Vol Spike" [sortable]="true"></p-column>
+
+                <p-column field="vol30min" header="30min Vol" [sortable]="true"></p-column>
+                <p-column field="variation30min" header="30min Var" [sortable]="true"></p-column>
+                <!-- <p-column field="vol-spike-30min" header="30minC" [sortable]="true"></p-column> -->
+
+                <p-column field="vol1hr" header="1hr Vol" [sortable]="true"></p-column>
+                <p-column field="variation1hr" header="1hr Var" [sortable]="true"></p-column>
+                <!-- <p-column field="vol-spike-1hr" header="1hrC" [sortable]="true"></p-column> -->
+
+                <p-column field="vol2hr" header="2hr Vol" [sortable]="true"></p-column>
+                <p-column field="variation2hr" header="2hr Var" [sortable]="true"></p-column>
+                <!-- <p-column field="vol-spike-2hr" header="2hrC" [sortable]="true"></p-column> -->
+
+                <p-column field="vol4hr" header="4hr Vol" [sortable]="true"></p-column>
+                <p-column field="variation4hr" header="4hr Var" [sortable]="true"></p-column>
+                <!-- <p-column field="change4hr" header="4hrC" [sortable]="true"></p-column> -->
+
+                <p-column field="vol6hr" header="5min Vol" [sortable]="true"></p-column>
+                <p-column field="variation6hr" header="6hr Var" [sortable]="true"></p-column>
+                <!-- <p-column field="change6hr" header="6hrC" [sortable]="true"></p-column> -->
+            </p-dataTable>
+        </div>
+        <div *ngIf="duration == '24hours'">
+            <p-dataTable [value]="dataChannel.chartView|btcChart: this.dataChannel.durationActive" [tableStyle]="{'font-size':'9pt'}">
+                <p-column field="coin" header="Coin" [sortable]="true"></p-column>
+                <p-column field="date" header="Time Stamp" [sortable]="true"></p-column>
+                <p-column field="variation6hr" header="Variation" [sortable]="true"></p-column>
+                <p-column field="vol6hr" header="Change" [sortable]="true"></p-column>
+                <p-column field="variation12hr" header="Variation" [sortable]="true"></p-column>
+                <p-column field="vol12hr" header="Change" [sortable]="true"></p-column>
+                <p-column field="variation18hr" header="Variation" [sortable]="true"></p-column>
+                <p-column field="vol18hr" header="Change" [sortable]="true"></p-column>
+            </p-dataTable>
+        </div>
+        <div *ngIf="duration == 'days'">
+            <p-dataTable [value]="dataChannel.chartView|btcChart: this.dataChannel.durationActive" [tableStyle]="{'font-size':'9pt'}">
+                <p-column field="coin" header="Coins" [sortable]="true"></p-column>
+                <p-column field="date" header="Time Stamp" [sortable]="true"></p-column>
+                <p-column field="variation1day" header="Variation" [sortable]="true"></p-column>
+                <p-column field="vol1day" header="Change" [sortable]="true"></p-column>
+                <p-column field="variation2day" header="Variation" [sortable]="true"></p-column>
+                <p-column field="vol2day" header="Change" [sortable]="true"></p-column>
+                <p-column field="variation4day" header="Variation" [sortable]="true"></p-column>
+                <p-column field="vol4day" header="Change" [sortable]="true"></p-column>
+                <p-column field="variation1w" header="Variation" [sortable]="true"></p-column>
+                <p-column field="vol1w" header="Change" [sortable]="true"></p-column>
+                <p-column field="variation2w" header="Variation" [sortable]="true"></p-column>
+                <p-column field="vol2w" header="Change" [sortable]="true"></p-column>
+                <p-column field="variation3w" header="Variation" [sortable]="true"></p-column>
+                <p-column field="vol3w" header="Change" [sortable]="true"></p-column>
+                <p-column field="variation4w" header="Variation" [sortable]="true"></p-column>
+                <p-column field="vol4w" header="4w Vol" [sortable]="true"></p-column>
+                <p-column field="variation5w" header="Variation" [sortable]="true"></p-column>
+                <p-column field="vol5w" header="5w Vol" [sortable]="true"></p-column>
+            </p-dataTable>
+        </div>
+
+    </div>
